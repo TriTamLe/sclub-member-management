@@ -9,9 +9,11 @@
     "start": "next start",
     "lint": "next lint",
     "test": "cross-env NODE_ENV=test vitest",
-    "coverage": "cross-env NODE_ENV=test vitest --coverage.enabled=true"
+    "coverage": "cross-env NODE_ENV=test vitest --coverage.enabled=true",
+    "prepare": "husky"
   },
   "dependencies": {
+    "@commitlint/config-conventional": "^19.6.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.468.0",
@@ -22,6 +24,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
     "@eslint/eslintrc": "^3",
     "@stylistic/eslint-plugin": "^2.12.1",
     "@testing-library/jest-dom": "^6.6.3",
@@ -43,6 +46,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "happy-dom": "^15.11.7",
+    "husky": "^9.1.7",
     "msw": "^2.6.8",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
