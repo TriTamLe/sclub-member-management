@@ -1,0 +1,71 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model House {
+  id      Int      @id @default(autoincrement())
+  value   String
+  members Member[]
+
+  @@map(name: "houses")
+}
+
+model MemberType {
+  id      Int      @id @default(autoincrement())
+  value   String
+  members Member[]
+
+  @@map(name: "member_types")
+}
+
+model Position {
+  id      Int              @id @default(autoincrement())
+  value   String
+  members MemberPosition[]
+
+  @@map(name: "positions")
+}
+
+model Member {
+  id              String   @id @default(uuid()) @db.Uuid
+  address         String   @db.VarChar(500)
+  avatar          String   @db.VarChar(2048)
+  birthdate       DateTime
+  email           String   @unique @db.VarChar(255)
+  fullName        String   @db.VarChar(100)
+  gender          String?  @db.VarChar(10)
+  houseId         Int
+  joiningYear     Int      @map(name: "joining_year")
+  major           String?  @db.VarChar(500)
+  memberTypeId    Int      @map(name: "member_type_id")
+  phone           String?  @db.VarChar(20)
+  university      String?  @db.VarChar(500)
+  universityGrade Int?     @map(name: "university_grade")
+  createdAt       DateTime @default(now()) @map(name: "created_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map(name: "updated_at")
+
+  house          House            @relation(fields: [houseId], references: [id])
+  memberPosition MemberPosition[]
+  memberType     MemberType       @relation(fields: [memberTypeId], references: [id])
+
+  @@map(name: "members")
+}
+
+model MemberPosition {
+  id         String   @id @default(uuid()) @db.Uuid
+  memberId   String   @map(name: "member_id") @db.Uuid
+  positionId Int      @map(name: "position_id")
+  term       Int
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @default(now()) @updatedAt @map(name: "updated_at")
+
+  member   Member   @relation(fields: [memberId], references: [id])
+  position Position @relation(fields: [positionId], references: [id])
+
+  @@map(name: "member_positions")
+}
