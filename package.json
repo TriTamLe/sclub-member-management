@@ -3,14 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "format": "prettier --write .",
+    "format": "eslint --fix ./src",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "cross-env NODE_ENV=test vitest",
     "coverage": "cross-env NODE_ENV=test vitest --coverage.enabled=true",
-    "prepare": "husky"
+    "prepare": "husky",
+    "migrate": "prisma migrate dev",
+    "studio": "prisma studio",
+    "seed": "prisma db seed",
+    "generate": "prisma generate"
+  },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma",
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} ./src/prisma/seed.ts"
   },
   "dependencies": {
     "@commitlint/config-conventional": "^19.6.0",
@@ -28,11 +36,12 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
     "@eslint/eslintrc": "^3",
+    "@prisma/client": "6.1.0",
     "@stylistic/eslint-plugin": "^2.12.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^20",
+    "@types/node": "^20.17.10",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.3.4",
@@ -51,7 +60,9 @@
     "husky": "^9.1.7",
     "msw": "^2.6.8",
     "postcss": "^8",
+    "prisma": "^6.1.0",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.8"
