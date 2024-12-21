@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const ZMemberTypeValue = z.enum(
-  ["regular_member", "elder", "former_member"],
+  ["regular_member", "former_member", "elder"],
   { required_error: "Please select the member type" },
 );
 

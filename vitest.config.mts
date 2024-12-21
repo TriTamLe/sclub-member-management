@@ -17,7 +17,11 @@ export default defineConfig({
         "src/lib/**/*",
         "src/components/**/*",
       ],
-      exclude: ["**/*.test.{ts,tsx}", "src/components/ui/**/*"],
+      exclude: [
+        "**/*.test.{ts,tsx}",
+        "src/components/ui/**/*",
+        "src/prisma/**/*",
+      ],
     },
   },
 });
