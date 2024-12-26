@@ -1,18 +1,14 @@
 # Form example requirement
 
-<aside>
-<img src="https://www.notion.so/icons/info-alternate_blue.svg" alt="https://www.notion.so/icons/info-alternate_blue.svg" width="40px" />
-
-This document is a example requirement for making a forms. It will be used to enjoy new front end technology
-
-</aside>
+> This document is a example requirement for making a forms. It will be used to enjoy new front end technology
 
 # Overview requirement
 
-Danang Soft Skills Club (SClub) are making a member management system. They need a form to create new member. An member includes these information
+Danang Soft Skills Club (SClub) are making a member management system. They need a form to create new member. An member
+includes these information
 
 | Field Name       | Type              | Is required or not | Unique | Special requirement                                                                                                                                          |
-| ---------------- | ----------------- | ------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|------------------|-------------------|--------------------|--------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Fullname         | Text              | YES                | NO     |                                                                                                                                                              |
 | Email            | Text              | YES                | YES    |                                                                                                                                                              |
 | University       | Text              | NO                 | NO     |                                                                                                                                                              |
@@ -34,7 +30,7 @@ Danang Soft Skills Club (SClub) are making a member management system. They need
 Member of SClub are sorted into houses. There are four houses. Check the appendix to get the list of house logo
 
 | Name of the house | Informal Name |
-| ----------------- | ------------- |
+|-------------------|---------------|
 | Ant House         | Nhà 1         |
 | Smile House       | Nhà 2         |
 | Storm House       | Nhà 3         |
@@ -43,7 +39,7 @@ Member of SClub are sorted into houses. There are four houses. Check the appendi
 ## Position
 
 | English           | Vietnamese                    |
-| ----------------- | ----------------------------- |
+|-------------------|-------------------------------|
 | House staff       | Staff Nhà                     |
 | House head        | Nhà trưởng                    |
 | Head of Media     | Trưởng Ban Truyền thông       |
@@ -60,7 +56,7 @@ Member of SClub are sorted into houses. There are four houses. Check the appendi
 ## Member type
 
 | Member type    | Description                                                                                                                   | Vietnamese title       |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+|----------------|-------------------------------------------------------------------------------------------------------------------------------|------------------------|
 | Regular member | The member that will actively join any events from the club                                                                   | Thành viên thường trực |
 | Elder          | The member who has been involved in the club for years, taken at least one position and currenly has not in the club any more | Cựu thành viên         |
 | Former member  | The member that will no longer been involved in any club events and had not taken any position in the club                    | Cựu thành viên         |
