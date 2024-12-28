@@ -5,7 +5,11 @@ import { Popover, PopoverTrigger } from "@radix-ui/react-popover";
 import { XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { HOUSE_NAME, THouse, ZHouse } from "@/app/sclub-member/types";
+import {
+  HOUSE_NAME,
+  THouse,
+  ZHouse,
+} from "@/app/sclub-member/(overview)/(types)";
 import { Command, CommandItem, CommandList } from "@/components/ui/command";
 import { PopoverContent } from "@/components/ui/popover";
 

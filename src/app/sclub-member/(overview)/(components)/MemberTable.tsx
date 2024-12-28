@@ -1,17 +1,18 @@
 import { AvatarFallback } from "@radix-ui/react-avatar";
 
-import { FIRST_SCLUB_TERM } from "@/app/sclub-member/constants";
+import { FIRST_SCLUB_TERM } from "@/app/sclub-member/(overview)/(constants)";
 import {
   GENDER_NAME,
   HOUSE_NAME,
   MEMBER_TYPE_NAME,
   POSITION_NAME,
   TGender,
+  TGetListMemberSearchParams,
   THouse,
   TMemberType,
   TPositionValue,
   ZMemberType,
-} from "@/app/sclub-member/types";
+} from "@/app/sclub-member/(overview)/(types)";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -23,19 +24,52 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { TGetListMemberDTO } from "@/lib/data/sclub-member";
+import { getListMember } from "@/lib/data/sclub-member";
 import { convertAvatarText } from "@/lib/utils";
 
-interface IMemberTable {
-  data: TGetListMemberDTO;
-}
-
-export const MemberTable = ({ data }: IMemberTable) => {
-  const { items } = data;
+export const MemberTable = async ({
+  query,
+}: {
+  query: TGetListMemberSearchParams;
+}) => {
   const currentTerm = new Date().getFullYear() - FIRST_SCLUB_TERM;
+  const {
+    gender,
+    memberType,
+    name,
+    house,
+    order,
+    pageIndex = 0,
+    pageSize = 10,
+    joiningYear,
+    position,
+  } = query;
+  const orderOption = order?.split(" ")[0] as "house" | "name" | "createdAt";
+  const orderType = order?.split(" ")[1] as "asc" | "desc";
+
+  const { items } = await getListMember({
+    filters: {
+      gender: !gender ? null : gender,
+      house: !house ? null : house,
+      memberType: !memberType ? null : memberType,
+      joiningYear: !joiningYear ? null : joiningYear,
+      name: !name ? null : name,
+      position: !position ? null : position,
+    },
+    order: {
+      house:
+        orderOption && orderType && orderOption === "house" ? orderType : null,
+      name:
+        orderOption && orderType && orderOption === "name" ? orderType : null,
+      created_at:
+        orderOption && orderType && orderOption === "name" ? orderType : "desc",
+    },
+    pageIndex,
+    pageSize,
+  });
 
   return (
-    <Table>
+    <Table parentClassName='h-[80dvh]'>
       <TableHeader>
         <TableRow>
           <TableHead></TableHead>
