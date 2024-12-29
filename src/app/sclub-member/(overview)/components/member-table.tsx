@@ -27,49 +27,19 @@ import {
 import { getListMember } from "@/lib/data/sclub-member";
 import { convertAvatarText } from "@/lib/utils";
 
+import { convertMemberListQuery } from "../../utils";
+
 export const MemberTable = async ({
   query,
 }: {
   query: TGetListMemberSearchParams;
 }) => {
   const currentTerm = new Date().getFullYear() - FIRST_SCLUB_TERM + 1;
-  const {
-    gender,
-    memberType,
-    name,
-    house,
-    order,
-    pageIndex = 0,
-    pageSize = 10,
-    joiningYear,
-    position,
-  } = query;
-  const orderOption = order?.split(" ")[0] as "house" | "name" | "createdAt";
-  const orderType = order?.split(" ")[1] as "asc" | "desc";
 
-  const { items } = await getListMember({
-    filters: {
-      gender: !gender ? null : gender,
-      house: !house ? null : house,
-      memberType: !memberType ? null : memberType,
-      joiningYear: !joiningYear ? null : parseInt(joiningYear),
-      name: !name ? null : name,
-      position: !position ? null : position,
-    },
-    order: {
-      house:
-        orderOption && orderType && orderOption === "house" ? orderType : null,
-      name:
-        orderOption && orderType && orderOption === "name" ? orderType : null,
-      created_at:
-        orderOption && orderType && orderOption === "name" ? orderType : "desc",
-    },
-    pageIndex,
-    pageSize,
-  });
+  const { items } = await getListMember(convertMemberListQuery(query));
 
   return (
-    <Table parentClassName='h-[80dvh]'>
+    <Table parentClassName='h-[73dvh]'>
       <TableHeader>
         <TableRow>
           <TableHead>Member</TableHead>
