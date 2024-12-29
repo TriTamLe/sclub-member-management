@@ -9,7 +9,7 @@ import {
   POSITION_NAME,
   TPositionValue,
   ZPositionValue,
-} from "@/app/sclub-member/(overview)/types";
+} from "@/app/sclub-member/types";
 import { Command, CommandItem, CommandList } from "@/components/ui/command";
 import { PopoverContent } from "@/components/ui/popover";
 

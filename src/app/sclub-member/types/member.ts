@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ZHouse } from "@/app/sclub-member/(overview)/types";
+import { ZHouse } from "@/app/sclub-member/types";
 
 import { ZGender } from "./gender";
 import { ZMemberType } from "./member-types";

@@ -7,12 +7,12 @@ import {
   MemberTable,
   SearchMemberByName,
 } from "@/app/sclub-member/(overview)/components";
+import { TGetListMemberSearchParams } from "@/app/sclub-member/types";
 import { LoadingMemberTable } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 
 import { MemberTypeFilter } from "./components/MemberTypeFilter";
 import { PositionFilter } from "./components/PositionFilter";
-import { TGetListMemberSearchParams } from "./types";
 
 export default async function SClubMemberManagement({
   searchParams,
