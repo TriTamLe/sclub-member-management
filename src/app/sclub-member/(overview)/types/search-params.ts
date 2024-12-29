@@ -1,12 +1,15 @@
+import { TGender } from "./gender";
 import { THouse } from "./houses";
+import { TMemberType } from "./member-types";
+import { TPositionValue } from "./position";
 
 export type TGetListMemberSearchParams = {
-  gender?: number;
+  gender?: TGender;
   house?: THouse;
-  memberType?: number;
-  joiningYear?: number;
+  memberType?: TMemberType;
+  joiningYear?: string;
   name?: string;
-  position?: number;
+  position?: TPositionValue;
   order?: `${"house" | "name" | "createdAt"} ${"asc" | "desc"}`;
   pageIndex?: number;
   pageSize?: number;

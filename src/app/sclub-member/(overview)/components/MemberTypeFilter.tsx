@@ -6,23 +6,25 @@ import { XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import {
-  HOUSE_NAME,
-  THouse,
-  ZHouse,
+  MEMBER_TYPE_NAME,
+  TMemberType,
+  ZMemberType,
 } from "@/app/sclub-member/(overview)/types";
 import { Command, CommandItem, CommandList } from "@/components/ui/command";
 import { PopoverContent } from "@/components/ui/popover";
 
-export const HouseFilter = () => {
+export const MemberTypeFilter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const houseFilter = searchParams.get("house") as THouse | undefined;
+  const memberTypeFilter = searchParams.get("memberType") as
+    | TMemberType
+    | undefined;
   const [open, setOpen] = useState(false);
 
-  const handleFilterByHouse = (value: THouse | undefined) => {
+  const handleFilterByMemberType = (value: TMemberType | undefined) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    params.set("house", value ?? "");
+    params.set("memberType", value ?? "");
     router.push(`/sclub-member?${params.toString()}`);
   };
 
@@ -31,22 +33,22 @@ export const HouseFilter = () => {
       <PopoverTrigger className='h-full' asChild>
         <div
           aria-expanded={open}
-          className='flex h-full w-fit min-w-28 cursor-pointer items-center justify-between gap-2 rounded-md border-[2px]  border-solid border-border px-2 py-1 text-sm hover:bg-secondary aria-expanded:border-ring'
+          className='flex h-full w-fit min-w-40 cursor-pointer items-center justify-between gap-2 rounded-md border-[2px] border-solid border-border px-2 py-1 text-sm hover:bg-secondary aria-expanded:border-ring'
         >
           <div>
-            {!houseFilter ? (
-              <p className='italic text-gray-400'>Select house</p>
+            {!memberTypeFilter ? (
+              <p className='italic text-gray-400'>Select member type</p>
             ) : (
-              HOUSE_NAME[houseFilter]
+              MEMBER_TYPE_NAME[memberTypeFilter]
             )}
           </div>
-          {houseFilter && (
+          {memberTypeFilter && (
             <XCircle
               size={16}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleFilterByHouse(undefined);
+                handleFilterByMemberType(undefined);
               }}
             />
           )}
@@ -55,23 +57,23 @@ export const HouseFilter = () => {
       <PopoverContent className={"w-40"}>
         <Command>
           <CommandList>
-            {ZHouse.options
-              .filter((h) => h !== houseFilter)
-              .map((house) => {
+            {ZMemberType.options
+              .filter((h) => h !== memberTypeFilter)
+              .map((memberType) => {
                 return (
                   <CommandItem
-                    key={house}
-                    value={house}
+                    key={memberType}
+                    value={memberType}
                     onSelect={(currentValue) => {
-                      handleFilterByHouse(
-                        currentValue === houseFilter
+                      handleFilterByMemberType(
+                        currentValue === memberTypeFilter
                           ? undefined
-                          : (currentValue as THouse),
+                          : (currentValue as TMemberType),
                       );
                       setOpen(false);
                     }}
                   >
-                    {HOUSE_NAME[house]}
+                    {MEMBER_TYPE_NAME[memberType]}
                   </CommandItem>
                 );
               })}

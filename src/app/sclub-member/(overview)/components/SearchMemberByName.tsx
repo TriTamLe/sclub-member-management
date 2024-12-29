@@ -28,7 +28,7 @@ export const SearchMemberByName = () => {
         debouncedHandleSearchByName(e.target.value);
       }}
       placeholder={"Search member by their name..."}
-      className='max-w-lg'
+      className='grow'
     />
   );
 };

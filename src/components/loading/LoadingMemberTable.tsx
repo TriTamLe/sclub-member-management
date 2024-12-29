@@ -1,3 +1,4 @@
+"use client";
 import {
   Table,
   TableBody,
@@ -13,9 +14,10 @@ export const LoadingMemberTable = () => {
     <Table className='animate-pulse ' parentClassName='h-[80dvh]'>
       <TableHeader>
         <TableRow>
-          <TableHead></TableHead>
-          <TableHead>House</TableHead>
+          <TableHead>Member</TableHead>
           <TableHead>Gender</TableHead>
+          <TableHead>House</TableHead>
+          <TableHead>Joined in</TableHead>
           <TableHead>MemberType</TableHead>
           <TableHead>University</TableHead>
         </TableRow>
@@ -43,6 +45,9 @@ export const LoadingMemberTable = () => {
               </TableCell>
               <TableCell>
                 {" "}
+                <div className='w-full rounded bg-gray-200 py-4'></div>
+              </TableCell>
+              <TableCell>
                 <div className='w-full rounded bg-gray-200 py-4'></div>
               </TableCell>
             </TableRow>

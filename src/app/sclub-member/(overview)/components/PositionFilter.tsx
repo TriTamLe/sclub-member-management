@@ -6,23 +6,25 @@ import { XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import {
-  HOUSE_NAME,
-  THouse,
-  ZHouse,
+  POSITION_NAME,
+  TPositionValue,
+  ZPositionValue,
 } from "@/app/sclub-member/(overview)/types";
 import { Command, CommandItem, CommandList } from "@/components/ui/command";
 import { PopoverContent } from "@/components/ui/popover";
 
-export const HouseFilter = () => {
+export const PositionFilter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const houseFilter = searchParams.get("house") as THouse | undefined;
+  const positionFilter = searchParams.get("position") as
+    | TPositionValue
+    | undefined;
   const [open, setOpen] = useState(false);
 
-  const handleFilterByHouse = (value: THouse | undefined) => {
+  const handleFilterByPosition = (value: TPositionValue | undefined) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    params.set("house", value ?? "");
+    params.set("position", value ?? "");
     router.push(`/sclub-member?${params.toString()}`);
   };
 
@@ -31,47 +33,47 @@ export const HouseFilter = () => {
       <PopoverTrigger className='h-full' asChild>
         <div
           aria-expanded={open}
-          className='flex h-full w-fit min-w-28 cursor-pointer items-center justify-between gap-2 rounded-md border-[2px]  border-solid border-border px-2 py-1 text-sm hover:bg-secondary aria-expanded:border-ring'
+          className='flex h-full w-fit min-w-32 cursor-pointer items-center justify-between gap-2 rounded-md border-[2px] border-solid border-border px-2 py-1 text-sm hover:bg-secondary aria-expanded:border-ring'
         >
           <div>
-            {!houseFilter ? (
-              <p className='italic text-gray-400'>Select house</p>
+            {!positionFilter ? (
+              <p className='italic text-gray-400'>Select position</p>
             ) : (
-              HOUSE_NAME[houseFilter]
+              POSITION_NAME[positionFilter]
             )}
           </div>
-          {houseFilter && (
+          {positionFilter && (
             <XCircle
               size={16}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                handleFilterByHouse(undefined);
+                handleFilterByPosition(undefined);
               }}
             />
           )}
         </div>
       </PopoverTrigger>
-      <PopoverContent className={"w-40"}>
+      <PopoverContent className={"w-56"}>
         <Command>
           <CommandList>
-            {ZHouse.options
-              .filter((h) => h !== houseFilter)
-              .map((house) => {
+            {ZPositionValue.options
+              .filter((h) => h !== positionFilter)
+              .map((position) => {
                 return (
                   <CommandItem
-                    key={house}
-                    value={house}
+                    key={position}
+                    value={position}
                     onSelect={(currentValue) => {
-                      handleFilterByHouse(
-                        currentValue === houseFilter
+                      handleFilterByPosition(
+                        currentValue === positionFilter
                           ? undefined
-                          : (currentValue as THouse),
+                          : (currentValue as TPositionValue),
                       );
                       setOpen(false);
                     }}
                   >
-                    {HOUSE_NAME[house]}
+                    {POSITION_NAME[position]}
                   </CommandItem>
                 );
               })}

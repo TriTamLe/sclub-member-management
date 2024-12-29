@@ -32,7 +32,7 @@ export const MemberTable = async ({
 }: {
   query: TGetListMemberSearchParams;
 }) => {
-  const currentTerm = new Date().getFullYear() - FIRST_SCLUB_TERM;
+  const currentTerm = new Date().getFullYear() - FIRST_SCLUB_TERM + 1;
   const {
     gender,
     memberType,
@@ -52,7 +52,7 @@ export const MemberTable = async ({
       gender: !gender ? null : gender,
       house: !house ? null : house,
       memberType: !memberType ? null : memberType,
-      joiningYear: !joiningYear ? null : joiningYear,
+      joiningYear: !joiningYear ? null : parseInt(joiningYear),
       name: !name ? null : name,
       position: !position ? null : position,
     },
@@ -72,9 +72,10 @@ export const MemberTable = async ({
     <Table parentClassName='h-[80dvh]'>
       <TableHeader>
         <TableRow>
-          <TableHead></TableHead>
-          <TableHead>House</TableHead>
+          <TableHead>Member</TableHead>
           <TableHead>Gender</TableHead>
+          <TableHead>House</TableHead>
+          <TableHead>Joined in</TableHead>
           <TableHead>MemberType</TableHead>
           <TableHead>University</TableHead>
         </TableRow>
@@ -105,11 +106,12 @@ export const MemberTable = async ({
                     </AvatarFallback>
                   </Avatar>
                   <p>{item.fullName}</p>
-                  {position && <Badge>{position}</Badge>}
+                  {position && <Badge className='ml-2'>{position}</Badge>}
                 </div>
               </TableCell>
-              <TableCell>{HOUSE_NAME[item.house.name as THouse]}</TableCell>
               <TableCell>{GENDER_NAME[item.gender.name as TGender]}</TableCell>
+              <TableCell>{HOUSE_NAME[item.house.name as THouse]}</TableCell>
+              <TableCell>{item.joiningYear + FIRST_SCLUB_TERM - 1}</TableCell>
               <TableCell>
                 {MEMBER_TYPE_NAME[item.memberType.name as TMemberType]}
               </TableCell>
