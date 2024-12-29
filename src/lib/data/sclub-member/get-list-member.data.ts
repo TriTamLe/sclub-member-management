@@ -11,10 +11,23 @@ export type TGetListMemberArgs = {
     created_at: "asc" | "desc";
   };
   filters: {
-    gender: number | null;
+    gender: "male" | "female" | "other" | null;
     house: "ants_house" | "smile_house" | "storm_house" | "shark_house" | null;
-    memberType: number | null;
-    position: number | null;
+    memberType: "regular_member" | "former_member" | "elder" | null;
+    position:
+      | "house_staff"
+      | "house_head"
+      | "head_of_media"
+      | "media_staff"
+      | "head_of_human_resources"
+      | "human_resources_staff"
+      | "head_of_event"
+      | "event_staff"
+      | "head_of_relations"
+      | "relations_staff"
+      | "vice_president"
+      | "president"
+      | null;
     joiningYear: number | null;
     name: string | null;
   };
@@ -75,7 +88,7 @@ export async function getListMember(
       AND: [
         {
           gender: filters.gender
-            ? { id: { equals: filters.gender } }
+            ? { value: { equals: filters.gender } }
             : undefined,
         },
         {
@@ -85,7 +98,7 @@ export async function getListMember(
         },
         {
           memberType: filters.memberType
-            ? { id: { equals: filters.memberType } }
+            ? { value: { equals: filters.memberType } }
             : undefined,
         },
         {
@@ -95,6 +108,17 @@ export async function getListMember(
         },
         {
           fullName: filters.name ? { contains: filters.name } : undefined,
+        },
+        {
+          memberPosition: filters.position
+            ? {
+                some: {
+                  position: {
+                    value: { equals: filters.position },
+                  },
+                },
+              }
+            : undefined,
         },
       ],
     },
