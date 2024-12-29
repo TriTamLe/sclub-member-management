@@ -1,6 +1,6 @@
 import { AvatarFallback } from "@radix-ui/react-avatar";
 
-import { FIRST_SCLUB_TERM } from "@/app/sclub-member/(overview)/(constants)";
+import { FIRST_SCLUB_TERM } from "@/app/sclub-member/(overview)/constants";
 import {
   GENDER_NAME,
   HOUSE_NAME,
@@ -12,7 +12,7 @@ import {
   TMemberType,
   TPositionValue,
   ZMemberType,
-} from "@/app/sclub-member/(overview)/(types)";
+} from "@/app/sclub-member/(overview)/types";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {

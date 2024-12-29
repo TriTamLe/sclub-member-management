@@ -9,7 +9,7 @@ import {
   HOUSE_NAME,
   THouse,
   ZHouse,
-} from "@/app/sclub-member/(overview)/(types)";
+} from "@/app/sclub-member/(overview)/types";
 import { Command, CommandItem, CommandList } from "@/components/ui/command";
 import { PopoverContent } from "@/components/ui/popover";
 

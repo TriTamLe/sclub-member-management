@@ -4,11 +4,11 @@ import {
   HouseFilter,
   MemberTable,
   SearchMemberByName,
-} from "@/app/sclub-member/(overview)/(components)";
+} from "@/app/sclub-member/(overview)/components";
 import { LoadingMemberTable } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 
-import { TGetListMemberSearchParams } from "./(types)";
+import { TGetListMemberSearchParams } from "./types";
 
 export default async function SClubMemberManagement({
   searchParams,
