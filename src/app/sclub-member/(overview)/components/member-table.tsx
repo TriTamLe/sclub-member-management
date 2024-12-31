@@ -1,4 +1,5 @@
 import { AvatarFallback } from "@radix-ui/react-avatar";
+import { PenBoxIcon, Trash } from "lucide-react";
 
 import { FIRST_SCLUB_TERM } from "@/app/sclub-member/constants";
 import {
@@ -60,15 +61,16 @@ export const MemberTable = async ({
         <GoToPage currentPageIndex={pageIndex} totalPage={totalPage} />
       </div>
       <div className={"w-full"}>
-        <Table parentClassName='h-[73dvh] overflow-y-auto'>
+        <Table parentClassName='h-[72.6dvh] overflow-y-auto'>
           <TableHeader>
             <TableRow>
               <TableHead>Member</TableHead>
               <TableHead>Gender</TableHead>
               <TableHead>House</TableHead>
               <TableHead>Joined in</TableHead>
-              <TableHead>MemberType</TableHead>
+              <TableHead>Member type</TableHead>
               <TableHead>University</TableHead>
+              <TableHead />
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -113,6 +115,12 @@ export const MemberTable = async ({
                   </TableCell>
                   <TableCell>
                     {item.university ? item.university : "N/A"}
+                  </TableCell>
+                  <TableCell>
+                    <div className='mr-4 flex items-center justify-end gap-3'>
+                      <PenBoxIcon size={20} className='cursor-pointer' />
+                      <Trash size={20} className='cursor-pointer' />
+                    </div>
                   </TableCell>
                 </TableRow>
               );
