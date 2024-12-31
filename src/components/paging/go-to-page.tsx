@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { Input } from "../ui/input";
@@ -21,10 +21,6 @@ export const GoToPage = (props: {
     if (value > totalPage - 1) {
       handleGotoPage(totalPage - 1);
 
-      if (inputRef.current) {
-        inputRef.current.value = totalPage.toString();
-      }
-
       return;
     }
     const params = new URLSearchParams(searchParams.toString());
@@ -32,6 +28,12 @@ export const GoToPage = (props: {
     params.set("pageIndex", value.toString());
     router.push(`/sclub-member?${params.toString()}`);
   };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = (currentPageIndex + 1).toString();
+    }
+  }, [currentPageIndex]);
 
   return (
     <div className='flex items-center gap-4'>

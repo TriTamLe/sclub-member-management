@@ -60,7 +60,7 @@ export const MemberTable = async ({
         <GoToPage currentPageIndex={pageIndex} totalPage={totalPage} />
       </div>
       <div className={"w-full"}>
-        <Table parentClassName='h-[72dvh]'>
+        <Table parentClassName='h-[73dvh] overflow-y-auto'>
           <TableHeader>
             <TableRow>
               <TableHead>Member</TableHead>

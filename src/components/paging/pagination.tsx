@@ -1,8 +1,7 @@
 "use client";
 
 import { useCallback, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   Pagination,
@@ -63,17 +62,14 @@ export const SCPagination = (props: {
             onClick={handleClickPrevious}
           />
         </PaginationItem>
-        {pageNumber >= 4 && (
+        {pageNumber >= 3 && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
         )}
         {pageNumber - 1 > 0 && (
           <PaginationItem>
-            <PaginationLink
-              href='#'
-              onClick={() => handleSetPaginationState(pageNumber - 1)}
-            >
+            <PaginationLink href='#' onClick={handleClickPrevious}>
               {pageNumber - 1}
             </PaginationLink>
           </PaginationItem>
@@ -83,17 +79,14 @@ export const SCPagination = (props: {
             {pageNumber}
           </PaginationLink>
         </PaginationItem>
-        {pageNumber + 1 < totalPage && (
+        {pageNumber + 1 <= totalPage && (
           <PaginationItem>
-            <PaginationLink
-              href='#'
-              onClick={() => handleSetPaginationState(pageNumber + 1)}
-            >
+            <PaginationLink href='#' onClick={handleClickNext}>
               {pageNumber + 1}
             </PaginationLink>
           </PaginationItem>
         )}
-        {pageNumber <= totalPage - 3 && (
+        {pageNumber <= totalPage - 2 && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
