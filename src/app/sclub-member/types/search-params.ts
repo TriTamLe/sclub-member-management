@@ -11,6 +11,6 @@ export type TGetListMemberSearchParams = {
   name?: string;
   position?: TPositionValue;
   order?: `${"house" | "name" | "createdAt"} ${"asc" | "desc"}`;
-  pageIndex?: number;
+  pageIndex?: string;
   size?: string;
 };

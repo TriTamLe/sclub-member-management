@@ -1,12 +1,12 @@
 import * as React from "react";
 
-import { cn } from "@/lib/styles/";
+import {cn} from "@/lib/styles/";
 
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement> & { parentClassName?: string }
 >(({ className, parentClassName, ...props }, ref) => (
-  <div className={cn("relative w-full overflow-auto", parentClassName)}>
+  <div className={cn("relative w-full", parentClassName)}>
     <table
       ref={ref}
       className={cn("relative w-full caption-bottom text-sm", className)}

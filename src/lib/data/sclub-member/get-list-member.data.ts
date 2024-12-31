@@ -1,3 +1,4 @@
+"use server";
 import { Prisma, PrismaClient } from "@prisma/client";
 
 import { TGetListMemberDTO, TGetListMemberItemDTO } from "./dto";
@@ -166,11 +167,10 @@ export async function getListMember(
       }),
     ]);
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
     return {
       total: count,
-      hasMore: skip + take < count,
+      hasNext: skip + take < count,
+      hasPrevious: skip > 0,
       items: (data as TQueryMemberList[]).map(
         (item) =>
           ({
@@ -200,6 +200,8 @@ export async function getListMember(
       ),
     };
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
     throw error;
   }
 }

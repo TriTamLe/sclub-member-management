@@ -1,7 +1,6 @@
 import { TGetListMemberSearchParams } from "@/app/sclub-member/types";
+import { PAGE_SIZE_OPTIONS } from "@/constants";
 import { TGetListMemberArgs } from "@/lib/data/sclub-member";
-
-import { PAGE_SIZE_OPTIONS } from "../constants";
 
 export const convertMemberListQuery = (
   query: TGetListMemberSearchParams,
@@ -38,7 +37,7 @@ export const convertMemberListQuery = (
       created_at:
         orderOption && orderType && orderOption === "name" ? orderType : "desc",
     },
-    pageIndex,
+    pageIndex: !pageIndex ? 0 : parseInt(pageIndex),
     pageSize: !size ? PAGE_SIZE_OPTIONS[0] : parseInt(size),
   };
 };

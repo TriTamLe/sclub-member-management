@@ -4,9 +4,7 @@ import {
   GenderFilter,
   HouseFilter,
   JoiningYearFilter,
-  MemberPagination,
   MemberTable,
-  PageSizeOptions,
   SearchMemberByName,
 } from "@/app/sclub-member/(overview)/components";
 import { TGetListMemberSearchParams } from "@/app/sclub-member/types";
@@ -53,15 +51,10 @@ export default async function SClubMemberManagement({
           <Button>Create new SC-er</Button>
         </div>
       </div>
-      <div className='flex w-full flex-row items-center justify-end gap-5'>
-        <PageSizeOptions />
-        <MemberPagination query={query} />
-      </div>
-      <div className={"w-full"}>
-        <Suspense key={tableKey} fallback={<LoadingMemberTable />}>
-          <MemberTable query={query} />
-        </Suspense>
-      </div>
+
+      <Suspense key={tableKey} fallback={<LoadingMemberTable />}>
+        <MemberTable query={query} />
+      </Suspense>
     </div>
   );
 }

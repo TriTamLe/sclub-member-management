@@ -1,1 +1,1 @@
-export * from "./LoadingMemberTable";
+export * from "./loading-member-table";
