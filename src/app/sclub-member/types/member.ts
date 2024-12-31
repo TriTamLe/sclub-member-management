@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { ZHouse } from "@/app/sclub-member/types";
+import { phoneNumberRegex } from "@/constants";
 
 import { ZGender } from "./gender";
 import { ZMemberType } from "./member-types";
@@ -22,7 +23,7 @@ export const ZMemberObject = z.object({
   memberType: ZMemberType,
   phone: z
     .string()
-    .regex(/^\+?[0-9]+$/, { message: "Invalid phone number" })
+    .regex(phoneNumberRegex, { message: "Invalid phone number" })
     .optional(),
   positions: ZPosition.array().optional(),
   university: z
