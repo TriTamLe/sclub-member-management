@@ -11,7 +11,7 @@ import {
   TGetListMemberSearchParams,
   THouse,
   TMemberType,
-  TPositionValue,
+  TPosition,
   ZMemberType,
 } from "@/app/sclub-member/types";
 import { convertMemberListQuery } from "@/app/sclub-member/utils";
@@ -27,6 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { SCTooltip } from "@/components/ui/tooltip";
 import { PAGE_SIZE_OPTIONS } from "@/constants";
 import { getListMember } from "@/lib/data/sclub-member";
 import { convertAvatarText } from "@/lib/utils";
@@ -63,6 +64,7 @@ export const MemberTable = async ({
         <Table parentClassName='h-[65dvh] overflow-y-auto'>
           <TableHeader>
             <TableRow>
+              <TableHead />
               <TableHead>Member</TableHead>
               <TableHead>Gender</TableHead>
               <TableHead>House</TableHead>
@@ -73,23 +75,38 @@ export const MemberTable = async ({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {items.map((item) => {
-              const findPosition = item.positions.find((position) => {
-                return position.term === currentTerm;
-              });
+            {items.map((item, index) => {
+              const hasPositionsInCurrentYear = item.positions.some(
+                (position) => {
+                  return position.term === currentTerm;
+                },
+              );
 
-              let position = "";
+              let positions: TPosition[] = [];
 
               if (
                 item.positions.length !== 0 &&
                 item.memberType.name === ZMemberType.Enum.regular_member &&
-                findPosition
+                hasPositionsInCurrentYear
               ) {
-                position = POSITION_NAME[findPosition.name as TPositionValue];
+                positions = item.positions
+                  .filter((p) => p.term === currentTerm)
+                  .map(
+                    (p) =>
+                      ({
+                        value: p.name,
+                        term: p.term,
+                      }) as TPosition,
+                  );
               }
 
               return (
                 <TableRow key={item.id}>
+                  <TableCell>
+                    <div className='flex items-center gap-2 text-silver'>
+                      {pageIndex * pageSize + index + 1}
+                    </div>
+                  </TableCell>
                   <TableCell>
                     <div className='flex items-center gap-2'>
                       <Avatar className='h-8 w-8'>
@@ -98,8 +115,17 @@ export const MemberTable = async ({
                           {convertAvatarText(item.fullName)}
                         </AvatarFallback>
                       </Avatar>
-                      <p>{item.fullName}</p>
-                      {position && <Badge className='ml-2'>{position}</Badge>}
+                      <p className='text-primary'>{item.fullName}</p>
+                      {positions
+                        ? positions.map((position, index) => (
+                            <Badge
+                              key={position.value + position.term + index}
+                              className='ml-2 bg-heliotrope text-white'
+                            >
+                              {POSITION_NAME[position.value]}
+                            </Badge>
+                          ))
+                        : null}
                     </div>
                   </TableCell>
                   <TableCell>
@@ -116,9 +142,19 @@ export const MemberTable = async ({
                     {item.university ? item.university : "N/A"}
                   </TableCell>
                   <TableCell>
-                    <div className='mr-4 flex items-center justify-end gap-3'>
-                      <PenBoxIcon size={20} className='cursor-pointer' />
-                      <Trash size={20} className='cursor-pointer' />
+                    <div className='mr-4 flex items-center justify-end gap-5'>
+                      <SCTooltip title='Edit member'>
+                        <PenBoxIcon
+                          size={22}
+                          className='cursor-pointer hover:text-info'
+                        />
+                      </SCTooltip>
+                      <SCTooltip title='Delete member'>
+                        <Trash
+                          size={22}
+                          className='cursor-pointer hover:text-destructive'
+                        />
+                      </SCTooltip>
                     </div>
                   </TableCell>
                 </TableRow>

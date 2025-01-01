@@ -40,6 +40,7 @@ export async function getListMember(
   args: TGetListMemberArgs,
 ): Promise<TGetListMemberDTO> {
   const { filters, order, pageIndex, pageSize } = args;
+
   const skip = pageIndex * pageSize;
   const take = pageSize;
   const query: Prisma.MemberFindManyArgs = {
