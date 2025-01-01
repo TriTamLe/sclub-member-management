@@ -16,9 +16,9 @@ import { PositionFilter } from "./components/position-filter";
 
 export default async function SClubMemberManagement({
   searchParams,
-}: {
+}: Readonly<{
   searchParams: Promise<TGetListMemberSearchParams>;
-}) {
+}>) {
   const query = await searchParams;
   const { name, house, gender, joiningYear, memberType, position, size } =
     query;
@@ -48,7 +48,9 @@ export default async function SClubMemberManagement({
         </div>
         <div className='flex grow items-center justify-end gap-2'>
           <SearchMemberByName />
-          <Button>Create new SC-er</Button>
+          <Button className='bg-shandy text-cod hover:brightness-95'>
+            Create new SC-er
+          </Button>
         </div>
       </div>
 

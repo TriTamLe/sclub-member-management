@@ -46,7 +46,7 @@ export const SCPagination = (props: {
   };
 
   useEffect(() => {
-    if (pageNumber > totalPage) {
+    if (totalPage && pageNumber && pageNumber > totalPage) {
       handleSetPaginationState(totalPage - 1);
     }
   }, [pageNumber, totalPage, handleSetPaginationState]);
