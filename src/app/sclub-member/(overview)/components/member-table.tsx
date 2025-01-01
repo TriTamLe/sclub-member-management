@@ -14,6 +14,7 @@ import {
   TPositionValue,
   ZMemberType,
 } from "@/app/sclub-member/types";
+import { convertMemberListQuery } from "@/app/sclub-member/utils";
 import { GoToPage, PageSizeOptions, SCPagination } from "@/components/paging";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -29,8 +30,6 @@ import {
 import { PAGE_SIZE_OPTIONS } from "@/constants";
 import { getListMember } from "@/lib/data/sclub-member";
 import { convertAvatarText } from "@/lib/utils";
-
-import { convertMemberListQuery } from "../../utils";
 
 export const MemberTable = async ({
   query,
@@ -61,7 +60,7 @@ export const MemberTable = async ({
         <GoToPage currentPageIndex={pageIndex} totalPage={totalPage} />
       </div>
       <div className={"w-full"}>
-        <Table parentClassName='h-[72.6dvh] overflow-y-auto'>
+        <Table parentClassName='h-[65dvh] overflow-y-auto'>
           <TableHeader>
             <TableRow>
               <TableHead>Member</TableHead>
@@ -95,7 +94,7 @@ export const MemberTable = async ({
                     <div className='flex items-center gap-2'>
                       <Avatar className='h-8 w-8'>
                         <AvatarImage src={item.avatarUrl} alt='avatar' />
-                        <AvatarFallback className='flex h-full w-full items-center justify-center bg-primary text-sm text-white'>
+                        <AvatarFallback className='text-sms flex h-full w-full items-center justify-center bg-background invert'>
                           {convertAvatarText(item.fullName)}
                         </AvatarFallback>
                       </Avatar>
