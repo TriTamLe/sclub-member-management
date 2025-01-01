@@ -18,8 +18,21 @@ export type TPositionValue = z.infer<typeof ZPositionValue>;
 
 export const ZPosition = z.object({
   value: ZPositionValue,
-  name: z.string(),
   term: z.number().min(1),
 });
 
 export type TPosition = z.infer<typeof ZPosition>;
+export const POSITION_NAME: Record<TPositionValue, string> = {
+  event_staff: "Event Staff",
+  head_of_event: "Head of Event",
+  head_of_human_resources: "Head of Human Resources",
+  head_of_media: "Head of Media",
+  head_of_relations: "Head of Relations",
+  house_head: "House Head",
+  house_staff: "House Staff",
+  human_resources_staff: "Human Resources Staff",
+  media_staff: "Media Staff",
+  president: "President",
+  relations_staff: "Relations Staff",
+  vice_president: "Vice President",
+};

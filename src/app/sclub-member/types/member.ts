@@ -1,9 +1,12 @@
 import { z } from "zod";
 
+import { ZHouse } from "@/app/sclub-member/types";
+import { phoneNumberRegex } from "@/constants";
+
 import { ZGender } from "./gender";
-import { ZHouse } from "./houses";
 import { ZMemberType } from "./member-types";
 import { ZPosition } from "./position";
+
 export const ZMemberObject = z.object({
   address: z.string().max(500, { message: "Address is too long" }),
   avatar: z.string().url({ message: "Invalid URL" }).optional(),
@@ -20,7 +23,7 @@ export const ZMemberObject = z.object({
   memberType: ZMemberType,
   phone: z
     .string()
-    .regex(/^\+?[0-9]+$/, { message: "Invalid phone number" })
+    .regex(phoneNumberRegex, { message: "Invalid phone number" })
     .optional(),
   positions: ZPosition.array().optional(),
   university: z

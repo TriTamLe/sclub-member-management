@@ -24,6 +24,7 @@ export type TGetListMemberItemDTO = {
 };
 export type TGetListMemberDTO = {
   total: number;
-  hasMore: boolean;
+  hasNext: boolean;
+  hasPrevious: boolean;
   items: TGetListMemberItemDTO[];
 };

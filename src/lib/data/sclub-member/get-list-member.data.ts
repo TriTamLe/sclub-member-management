@@ -1,3 +1,4 @@
+"use server";
 import { Prisma, PrismaClient } from "@prisma/client";
 
 import { TGetListMemberDTO, TGetListMemberItemDTO } from "./dto";
@@ -11,10 +12,23 @@ export type TGetListMemberArgs = {
     created_at: "asc" | "desc";
   };
   filters: {
-    gender: number | null;
-    house: number | null;
-    memberType: number | null;
-    position: number | null;
+    gender: "male" | "female" | "other" | null;
+    house: "ants_house" | "smile_house" | "storm_house" | "shark_house" | null;
+    memberType: "regular_member" | "former_member" | "elder" | null;
+    position:
+      | "house_staff"
+      | "house_head"
+      | "head_of_media"
+      | "media_staff"
+      | "head_of_human_resources"
+      | "human_resources_staff"
+      | "head_of_event"
+      | "event_staff"
+      | "head_of_relations"
+      | "relations_staff"
+      | "vice_president"
+      | "president"
+      | null;
     joiningYear: number | null;
     name: string | null;
   };
@@ -26,10 +40,8 @@ export async function getListMember(
   args: TGetListMemberArgs,
 ): Promise<TGetListMemberDTO> {
   const { filters, order, pageIndex, pageSize } = args;
-
   const skip = pageIndex * pageSize;
   const take = pageSize;
-
   const query: Prisma.MemberFindManyArgs = {
     skip,
     take,
@@ -77,15 +89,17 @@ export async function getListMember(
       AND: [
         {
           gender: filters.gender
-            ? { id: { equals: filters.gender } }
+            ? { value: { equals: filters.gender } }
             : undefined,
         },
         {
-          house: filters.house ? { id: { equals: filters.house } } : undefined,
+          house: filters.house
+            ? { value: { equals: filters.house } }
+            : undefined,
         },
         {
           memberType: filters.memberType
-            ? { id: { equals: filters.memberType } }
+            ? { value: { equals: filters.memberType } }
             : undefined,
         },
         {
@@ -95,6 +109,17 @@ export async function getListMember(
         },
         {
           fullName: filters.name ? { contains: filters.name } : undefined,
+        },
+        {
+          memberPosition: filters.position
+            ? {
+                some: {
+                  position: {
+                    value: { equals: filters.position },
+                  },
+                },
+              }
+            : undefined,
         },
       ],
     },
@@ -134,42 +159,49 @@ export async function getListMember(
     };
   }>;
 
-  const [data, count] = await client.$transaction([
-    client.member.findMany(query),
-    client.member.count({
-      where: query.where,
-    }),
-  ]);
+  try {
+    const [data, count] = await client.$transaction([
+      client.member.findMany(query),
+      client.member.count({
+        where: query.where,
+      }),
+    ]);
 
-  return {
-    total: count,
-    hasMore: skip + take < count,
-    items: (data as TQueryMemberList[]).map(
-      (item) =>
-        ({
-          id: item.id,
-          fullName: item.fullName,
-          avatarUrl: item.avatarUrl,
-          gender: {
-            value: item.genderId,
-            name: item.gender.value,
-          },
-          house: {
-            value: item.houseId,
-            name: item.house.value,
-          },
-          memberType: {
-            value: item.memberTypeId,
-            name: item.memberType.value,
-          },
-          university: item.university,
-          joiningYear: item.joiningYear,
-          positions: item.memberPosition.map((relation) => ({
-            value: relation.position.id,
-            name: relation.position.value,
-            term: relation.term,
-          })),
-        }) as TGetListMemberItemDTO,
-    ),
-  };
+    return {
+      total: count,
+      hasNext: skip + take < count,
+      hasPrevious: skip > 0,
+      items: (data as TQueryMemberList[]).map(
+        (item) =>
+          ({
+            id: item.id,
+            fullName: item.fullName,
+            avatarUrl: item.avatarUrl,
+            gender: {
+              value: item.genderId,
+              name: item.gender.value,
+            },
+            house: {
+              value: item.houseId,
+              name: item.house.value,
+            },
+            memberType: {
+              value: item.memberTypeId,
+              name: item.memberType.value,
+            },
+            university: item.university,
+            joiningYear: item.joiningYear,
+            positions: item.memberPosition.map((relation) => ({
+              value: relation.position.id,
+              name: relation.position.value,
+              term: relation.term,
+            })),
+          }) as TGetListMemberItemDTO,
+      ),
+    };
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
+  }
 }

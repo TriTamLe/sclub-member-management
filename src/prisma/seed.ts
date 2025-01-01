@@ -1,10 +1,28 @@
+/* eslint-disable no-console */
 import { faker } from "@faker-js/faker/locale/en";
 import { PrismaClient } from "@prisma/client";
 
 // seeding the data. Use for development only
 const client = new PrismaClient();
 
+async function deleteData() {
+  console.log("deleting...");
+  await client.memberPosition.deleteMany({});
+  console.log("finish delete member position");
+  await client.member.deleteMany({});
+  console.log("finish delete member");
+  await client.position.deleteMany({});
+  console.log("finish delete position");
+  await client.memberType.deleteMany({});
+  console.log("finish delete member type");
+  await client.house.deleteMany({});
+  console.log("finish delete house");
+  await client.gender.deleteMany({});
+  console.log("finish delete gender");
+}
+
 async function seedingGender() {
+  console.log("seeding gender");
   await client.gender.createMany({
     data: [
       { id: 0, value: "male" },
@@ -15,6 +33,7 @@ async function seedingGender() {
 }
 
 async function seedingHouses() {
+  console.log("seeding houses");
   await client.house.createMany({
     data: [
       { id: 1, value: "ants_house" },
@@ -26,6 +45,7 @@ async function seedingHouses() {
 }
 
 async function seedingMemberTypes() {
+  console.log("seeding member types");
   await client.memberType.createMany({
     data: [
       { id: 0, value: "regular_member" },
@@ -36,6 +56,7 @@ async function seedingMemberTypes() {
 }
 
 async function seedingPosition() {
+  console.log("seeding position");
   await client.position.createMany({
     data: [
       { id: 0, value: "house_staff" },
@@ -55,6 +76,7 @@ async function seedingPosition() {
 }
 
 async function seedingGeneration(_term?: number) {
+  console.log("seeding generations");
   const firstYear = 2009;
   const currentYear = new Date().getFullYear();
   const term = _term ?? currentYear - 2009 + 1;
@@ -212,15 +234,16 @@ async function seedingGeneration(_term?: number) {
 async function main() {
   const currentYear = new Date().getFullYear();
 
+  await deleteData();
   await seedingGender();
   await seedingHouses();
   await seedingMemberTypes();
   await seedingPosition();
   await seedingGeneration();
   await seedingGeneration(currentYear - 2009);
+  await seedingGeneration(currentYear - 2009 - 1);
 }
 
 main().then(() => {
-  // eslint-disable-next-line no-console
   console.log("finished");
 });
