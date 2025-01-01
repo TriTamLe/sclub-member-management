@@ -175,7 +175,7 @@ async function seedingGeneration(_term?: number) {
       term,
     })),
   });
-  //generate head of event
+  //*generate head of event
   await client.memberPosition.create({
     data: {
       id: faker.string.uuid(),
@@ -193,7 +193,7 @@ async function seedingGeneration(_term?: number) {
       term,
     })),
   });
-  //generate head of relation
+  //*generate head of relation
   await client.memberPosition.create({
     data: {
       id: faker.string.uuid(),
@@ -211,7 +211,7 @@ async function seedingGeneration(_term?: number) {
       term,
     })),
   });
-  //generate vice president
+  //*generate vice president
   await client.memberPosition.create({
     data: {
       id: faker.string.uuid(),
@@ -220,7 +220,7 @@ async function seedingGeneration(_term?: number) {
       term,
     },
   });
-  //generate president
+  //*generate president
   await client.memberPosition.create({
     data: {
       id: faker.string.uuid(),
