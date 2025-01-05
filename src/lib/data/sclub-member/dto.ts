@@ -28,3 +28,23 @@ export type TGetListMemberDTO = {
   hasPrevious: boolean;
   items: TGetListMemberItemDTO[];
 };
+
+export type TGetOneMemberDTO = {
+  id: string;
+  address: string | null;
+  avatarUrl: string | null;
+  birthdate: string | null;
+  email: string;
+  fullName: string;
+  joiningYear: number;
+  major: string | null;
+  phone: string | null;
+  university: string | null;
+  universityGrade: number | null;
+  createdAt: string;
+  updatedAt: string;
+  gender: string;
+  house: string;
+  memberType: string;
+  positions: { position: string; term: number }[];
+};
